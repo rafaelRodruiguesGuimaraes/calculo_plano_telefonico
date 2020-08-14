@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import { Container } from './styles';
 
@@ -10,17 +10,14 @@ interface dataProps {
 }
 
 interface priceTableContentProps {
-    data: Array<dataProps>
+    data: Array<dataProps>;
 }
 
 const PriceTableContent : React.FC<priceTableContentProps> = ({ data }) => {
 
-    const faleMais30 = 30;
-    const faleMais60 = 60;
-    const faleMais120 = 120;
+    console.log(data)
 
     return (
-
         <Container>
             <table className="price-list">
                 <thead>
@@ -42,8 +39,8 @@ const PriceTableContent : React.FC<priceTableContentProps> = ({ data }) => {
                         ))
                     }
             </table>
-        </Container>
-    )
+        </Container> 
+    );
 }
 
 export default PriceTableContent;
