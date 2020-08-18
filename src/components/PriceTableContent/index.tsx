@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Container } from './styles';
 
-interface dataProps {
+interface DataProps {
     name: string;
     origin: string;
     destiny: string;
@@ -10,7 +10,7 @@ interface dataProps {
 }
 
 interface priceTableContentProps {
-    data: Array<dataProps>;
+    data: DataProps[];
 }
 
 const PriceTableContent : React.FC<priceTableContentProps> = ({ data }) => {
