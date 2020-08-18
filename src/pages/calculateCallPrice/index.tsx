@@ -1,12 +1,13 @@
-import React, { useCallback, useState, useRef } from 'react';
+import React, { useCallback, useState } from 'react';
 import { Form } from '@unform/web';
 import { Link } from 'react-router-dom';
 
-import { Container, Input, Select } from './styles';
+import Input from '../../components/Form/Input';
+
+import { Container, Select } from './styles';
 
 const CalculateCallPrice = () => {
-    
-    const [ time, setTime ] = useState(40);
+
     const [ result, setResult ]= useState({});
     
     const prices = {
@@ -18,26 +19,26 @@ const CalculateCallPrice = () => {
         origin018Destiny011: { origin: '018', destiny: '011', price: 1.90  },
     };
 
-    // const faleMais30 = 30;
-    // const faleMais60 = 60;
-    // const faleMais120 = 120;
+    const faleMais30 = 30;
+    const faleMais60 = 60;
+    const faleMais120 = 120;
 
-    const handleSubmit = useCallback(() => {
+    const handleSubmit = useCallback((data) => {
 
-        // const comFaleMais = 34;
-        // const semFaleMais = time * prices.origin011Destiny016.price;
+        const time = data.time;
+
+        const result = {
+            origem: prices.origin011Destiny016.origin,
+            destiny: prices.origin011Destiny016.destiny,
+            tempo: time,
+            plano: faleMais30,
+            valorComFaleMais:  time - faleMais30
+        }
+
+        console.log(time - faleMais120)
         
-        // const response = {
-        //     origem: prices.origin011Destiny016.origin,
-        //     destino: prices.origin011Destiny016.destiny,
-        //     tempo: 40,
-        //     planoFaleMais: 'faleMais30',
-        //     comFaleMais: comFaleMais,
-        //     semFaleMais: semFaleMais
-
-        console.log()
-
-    }, [])
+        console.log(result);
+    }, [prices.origin011Destiny016.destiny, prices.origin011Destiny016.origin])
 
     return (
         <Container>
@@ -45,7 +46,7 @@ const CalculateCallPrice = () => {
                 <label htmlFor="region">Escolha a região:</label>
                 <Select name="region" id="region" autoFocus form="Form">
                     <option value="default">---</option>
-                    <option value="origin011Destiny016">011 para 016</option>
+                    <option value="prices.origin011Destiny016">011 para 016</option>
                     <option value="origin016Destiny011">016 para 011</option>
                     <option value="origin011Destiny017">011 para 017</option>
                     <option value="origin017Destiny011">017 para 011</option>
@@ -53,7 +54,7 @@ const CalculateCallPrice = () => {
                     <option value="origin018Destiny011">018 para 011</option>
                 </Select>
 
-                <Input type="number" placeholder="Tempo da ligação em minutos" max="999" />
+                <Input name="time" placeholder="Tempo de ligação"/>
 
                 <label htmlFor="region">Escolha o plano:</label>
                 <Select name="region" id="region" autoFocus form="Form">
