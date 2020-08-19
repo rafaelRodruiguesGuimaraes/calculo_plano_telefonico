@@ -23,9 +23,9 @@ const CalculateCallPrice = () => {
     const faleMais60 = 60;
     const faleMais120 = 120;
 
-    const handleSubmit = useCallback((data) => {
+    const handleSubmit = useCallback(({ time }) => {
 
-        const time = data.time;
+        console.log(time);
 
         const result = {
             origem: prices.origin011Destiny016.origin,
