@@ -1,21 +1,9 @@
 import React from 'react';
 
+import pricesApi from '../../services/pricesApi'
 import { Container } from './styles';
 
-interface dataProps {
-    name: string;
-    origin: string;
-    destiny: string;
-    price: number;
-}
-
-interface priceTableContentProps {
-    data: Array<dataProps>;
-}
-
-const PriceTableContent : React.FC<priceTableContentProps> = ({ data }) => {
-
-    console.log(data)
+const PriceTableContent = () => {
 
     return (
         <Container>
@@ -28,12 +16,12 @@ const PriceTableContent : React.FC<priceTableContentProps> = ({ data }) => {
                     </tr>
                 </thead>
                     {
-                        data.map(dataContent => (
-                            <tbody key={dataContent.name}>
+                        pricesApi.map(prices => (
+                            <tbody key={prices.region}>
                                 <tr>
-                                    <td>{dataContent.origin}</td>
-                                    <td>{dataContent.destiny}</td>
-                                    <td>{dataContent.price}</td>
+                                    <td>{prices.origin}</td>
+                                    <td>{prices.destiny}</td>
+                                    <td>{prices.price}</td>
                                 </tr>
                             </tbody>
                         ))
