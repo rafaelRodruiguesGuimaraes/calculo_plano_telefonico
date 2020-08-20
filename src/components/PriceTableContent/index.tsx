@@ -1,6 +1,6 @@
 import React from 'react';
 
-import pricesApi from '../../services/pricesApi'
+import { prices } from '../../services/fakeApi'
 import { Container } from './styles';
 
 const PriceTableContent = () => {
@@ -16,12 +16,12 @@ const PriceTableContent = () => {
                     </tr>
                 </thead>
                     {
-                        pricesApi.map(prices => (
-                            <tbody key={prices.region}>
+                        prices.map(price => (
+                            <tbody key={price.region}>
                                 <tr>
-                                    <td>{prices.origin}</td>
-                                    <td>{prices.destiny}</td>
-                                    <td>{prices.price}</td>
+                                    <td>{price.origin}</td>
+                                    <td>{price.destiny}</td>
+                                    <td>{price.price}</td>
                                 </tr>
                             </tbody>
                         ))

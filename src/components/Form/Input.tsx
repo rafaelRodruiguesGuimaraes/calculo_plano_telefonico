@@ -10,9 +10,6 @@ const Input: React.FC<inputProps> = ({ name, ...rest }) => {
     const { fieldName, registerField, defaultValue, error } = useField(name);
 
     useEffect(() => {
-
-        console.log(inputRef.current?.value);
-
         registerField({
             name: fieldName,
             ref: inputRef.current,
