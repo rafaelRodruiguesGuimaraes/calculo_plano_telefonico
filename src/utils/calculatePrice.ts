@@ -1,14 +1,22 @@
 export default class CalculatedPrice {
   comFaleMais(time: number, planLimit: number | undefined, price: number | undefined) {
     const calculatedTime = time - Number(planLimit);
-    const calculatedPrice = calculatedTime * Number(price);
+    let calculatedPrice = calculatedTime * Number(price);
 
-    return calculatedPrice;
+    if(calculatedPrice <= 0) {
+        calculatedPrice = 0;
+    }
+
+    return Number(calculatedPrice).toFixed(2);
   }
 
   semFaleMais(time: number, price: number | undefined) {
-    const calculatedPrice = time * Number(price);
+    let calculatedPrice = time * Number(price);
 
-    return calculatedPrice;
+    if(calculatedPrice <= 0) {
+        calculatedPrice = 0;
+    }
+
+    return Number(calculatedPrice).toFixed(2);
   }
 }

@@ -8,13 +8,14 @@ import { Container } from './styles';
 const Home: React.FC = () => {
   return (
     <Container>
-      <div className="container">
-          <PriceTableContent />
-      </div>
-
-      <Link to="calculate">
-        Calcular valores de ligação!
-      </Link>
+        <div className="list">
+            <PriceTableContent />
+        </div>
+        <div className="link">
+            <Link to="calculate">
+                Calcular valores de ligação!
+            </Link>
+        </div>
     </Container>
   ) 
 }

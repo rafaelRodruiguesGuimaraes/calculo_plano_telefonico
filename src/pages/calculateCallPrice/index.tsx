@@ -10,6 +10,7 @@ import CalculatePrice from '../../utils/calculatePrice';
 import { Container } from './styles';
 
 import {prices, plans} from '../../services/fakeApi';
+import { createCipher } from 'crypto';
 
 interface ITotal {
     origem: string | undefined;
@@ -22,6 +23,9 @@ interface ITotal {
 
 const CalculateCallPrice: React.FC = () => {
   const [results, setResults] = useState<Array<ITotal>>();
+  const [error, setError] = useState<boolean>(false);
+
+  console.log(error);
 
   const result: Array<ITotal> = [];
   
@@ -29,35 +33,46 @@ const CalculateCallPrice: React.FC = () => {
   const planOptions = plans.map(plan => { return { value: plan.name, label: plan.name }});
 
   const handleSubmit = useCallback(async ({ time, region, plan }) => {
-    const calculate = new CalculatePrice();
 
-    const selectedRegion = prices.find(price => price.region === region);
-    const selectedPlan = plans.find(selectPlan => selectPlan.name === plan);
+    try {
+        if(!time || !region || !plan) {
+            throw new Error('Missing informations and try again');
+        };
 
-    const comFaleMais = calculate.comFaleMais(time, selectedPlan?.limit, selectedRegion?.price);
-    const semFaleMais = calculate.semFaleMais(time, selectedRegion?.price);
+        const calculate = new CalculatePrice();
+    
+        const selectedRegion = prices.find(price => price.region === region);
+        const selectedPlan = plans.find(selectPlan => selectPlan.name === plan);
+    
+        const comFaleMais = Number(calculate.comFaleMais(time, selectedPlan?.limit, selectedRegion?.price));
+        const semFaleMais = Number(calculate.semFaleMais(time, selectedRegion?.price));
+    
+        const total: ITotal = {
+          origem: selectedRegion?.origin,
+          destino: selectedRegion?.destiny,
+          tempo: time,
+          plano: selectedPlan?.name,
+          valorComFaleMais: comFaleMais,
+          valorSemFaleMais: semFaleMais,
+        };
+    
+        result.push(total);
+    
+        setResults(result);
+    }catch(err) {
+        setError(true)
 
-    const total: ITotal = {
-      origem: selectedRegion?.origin,
-      destino: selectedRegion?.destiny,
-      tempo: time,
-      plano: selectedPlan?.name,
-      valorComFaleMais: comFaleMais,
-      valorSemFaleMais: semFaleMais,
-    };
-
-    result.push(total);
-
-    setResults(result);
+        console.log(err);
+    }
   }, [results]);
 
   return (
     <Container>
       <Form onSubmit={handleSubmit}>
 
-        <Select name="region" options={priceOptions} placeholder="Escolha a região" autoFocus />
+        <Select error={error} name="region" options={priceOptions} placeholder="Escolha a região" autoFocus />
         <Input name="time" type="number" placeholder="Tempo de ligação" max={200} />
-        <Select name="plan" placeholder="Escolha um plano" options={planOptions} />
+        <Select error={error} name="plan" placeholder="Escolha um plano" options={planOptions} />
 
         <button type="submit">Click</button>
       </Form>
