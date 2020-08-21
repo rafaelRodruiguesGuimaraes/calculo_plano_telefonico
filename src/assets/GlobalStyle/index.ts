@@ -10,8 +10,7 @@ export const GlobalStyle = createGlobalStyle`
         box-sizing: border-box;
     }
     body {
-        background: #BDDBE6;
-        color: #fff;
+        background: #52516E;
         -webkit-font-smoothing: antialiased;
     }
     body, input, button {

@@ -10,7 +10,6 @@ import CalculatePrice from '../../utils/calculatePrice';
 import { Container } from './styles';
 
 import {prices, plans} from '../../services/fakeApi';
-import { createCipher } from 'crypto';
 
 interface ITotal {
     origem: string | undefined;
@@ -77,7 +76,7 @@ const CalculateCallPrice: React.FC = () => {
         <button type="submit">Click</button>
       </Form>
 
-        <table>
+        <table className="price-list">
             <thead>
                 <tr>
                     <td>Origem</td>
@@ -96,8 +95,8 @@ const CalculateCallPrice: React.FC = () => {
                         <td>{r.destino}</td>
                         <td>{r.tempo}</td>
                         <td>{r.plano}</td>
-                        <td>{r.valorSemFaleMais}</td>
                         <td>{r.valorComFaleMais}</td>
+                        <td>{r.valorSemFaleMais}</td>
                       </tr>
                   </tbody>
               ))

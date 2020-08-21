@@ -5,11 +5,12 @@ export const Container = styled.div`
     height: 100vh;
 
     display: flex;
-    align-items: stretch;
+    flex-direction: column;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
 
     a {
-        display: flex;
-        justify-content: center;
         color: #000;
         font-size: 24px;
         text-decoration: none;
