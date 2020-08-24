@@ -7,7 +7,7 @@ export default class CalculatedPrice {
         calculatedPrice = 0;
     }
 
-    return Number(calculatedPrice).toFixed(2);
+    return calculatedPrice;
   }
 
   semFaleMais(time: number, price: number | undefined) {

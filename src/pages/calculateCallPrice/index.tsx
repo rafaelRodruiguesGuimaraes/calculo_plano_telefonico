@@ -11,19 +11,21 @@ import { Container } from './styles';
 import Header from '../../components/Header';
 
 import {prices, plans} from '../../services/fakeApi';
+import { formatPrice } from '../../utils/format';
 
 interface ITotal {
     origem: string | undefined;
     destino: string | undefined;
     tempo: number;
     plano: string | undefined;
-    valorComFaleMais: number;
-    valorSemFaleMais: number;
+    valorComFaleMais: string;
+    valorSemFaleMais: string;
 };
 
 const CalculateCallPrice: React.FC = () => {
   const [results, setResults] = useState<Array<ITotal>>();
   const [error, setError] = useState<boolean>(false);
+  const [free, setFree] = useState(false);
 
   const result: Array<ITotal> = [];
   
@@ -45,23 +47,25 @@ const CalculateCallPrice: React.FC = () => {
         const comFaleMais = Number(calculate.comFaleMais(time, selectedPlan?.limit, selectedRegion?.price));
         const semFaleMais = Number(calculate.semFaleMais(time, selectedRegion?.price));
     
+        if(comFaleMais <= 0) {
+            setFree(true);
+        }
+
         const total: ITotal = {
           origem: selectedRegion?.origin,
           destino: selectedRegion?.destiny,
           tempo: time,
           plano: selectedPlan?.name,
-          valorComFaleMais: comFaleMais,
-          valorSemFaleMais: semFaleMais,
+          valorComFaleMais: formatPrice(comFaleMais),
+          valorSemFaleMais: formatPrice(semFaleMais),
         };
     
         result.push(total);
     
         setResults(result);
-        setError(false)
+        setError(false);
     }catch(err) {
         setError(true)
-
-        console.log(err);
     }
   }, [results]);
 
@@ -125,11 +129,10 @@ const CalculateCallPrice: React.FC = () => {
                                 <td>{r.tempo}m</td>
                                 <td>{r.plano}</td>
                                     { 
-                                        r.valorComFaleMais === 0 ? 
-                                        <td><strong>Gratis!</strong></td> : 
-                                        <td><strong>R$</strong>{r.valorComFaleMais}</td>  
+                                        free ? <td><strong>Sem custos adicionais</strong></td> :
+                                        <td>{r.valorComFaleMais}</td>  
                                     }
-                                <td><strong>R$</strong> {r.valorSemFaleMais}</td>
+                                <td>{r.valorSemFaleMais}</td>
                             </tr>
                         </tbody>
                     ))
