@@ -1,23 +1,43 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-    width: 100vw;
+    max-width: 100vw;
     height: 100vh;
 
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    align-content: center;
-    justify-content: center;
+    .prices {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        align-content: center;
 
-    a {
-        color: #000;
-        font-size: 24px;
-        text-decoration: none;
-        transition: 0.2s;
+        a {
+            color: #fff; 
+            background: #E39736;
+            width: 400px;
+            text-align: center;
+            border-radius: 8px;
+            padding: 16px;
+            font-size: 24px;
+            text-decoration: none;
+            transition: 0.2s;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
 
-        &:hover{
-            transform: translateY(-3px);
+            &:hover{
+                transform: translateY(-3px);
+            }
+        }
+    }
+
+    @media (min-width: 1100px) {
+        .prices {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+        }
+
+        a {
+            max-width: 300px;
+            margin-left: 32px;
         }
     }
 `;
