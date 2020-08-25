@@ -9,7 +9,7 @@ describe('Both results must be a number', () => {
     });
 
     it('semFaleMais must return a number', () => {
-        const totalSemFaleMais = Number(semFaleMais(0, 0));
+        const totalSemFaleMais = semFaleMais(0, 0);
 
         expect(typeof totalSemFaleMais).toBe('number');
     });
