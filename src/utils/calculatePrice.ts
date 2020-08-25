@@ -1,7 +1,20 @@
-export default class CalculatedPrice {
-  comFaleMais(time: number, planLimit: number | undefined, price: number | undefined) {
+export function comFaleMais(time: number, planLimit: number | undefined, price: number | undefined) {
     const calculatedTime = time - Number(planLimit);
-    let calculatedPrice = calculatedTime * Number(price);
+
+    const calculatedPrice = calculatedTime * Number(price);
+    const percent = (calculatedPrice * 10) / 100;
+
+    let total = calculatedPrice + percent;
+
+    if(total <= 0) {
+        total = 0;
+    }
+
+    return total;
+  }
+
+  export function semFaleMais(time: number, price: number) {
+    let calculatedPrice = time * price;
 
     if(calculatedPrice <= 0) {
         calculatedPrice = 0;
@@ -9,14 +22,3 @@ export default class CalculatedPrice {
 
     return calculatedPrice;
   }
-
-  semFaleMais(time: number, price: number | undefined) {
-    let calculatedPrice = time * Number(price);
-
-    if(calculatedPrice <= 0) {
-        calculatedPrice = 0;
-    }
-
-    return Number(calculatedPrice).toFixed(2);
-  }
-}

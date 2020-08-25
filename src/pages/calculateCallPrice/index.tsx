@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import Input from '../../components/Form/Input';
 import Select from '../../components/Form/Select';
 
-import CalculatePrice from '../../utils/calculatePrice';
+import { comFaleMais, semFaleMais } from '../../utils/calculatePrice';
 
 import { Container } from './styles';
 import Header from '../../components/Header';
@@ -38,16 +38,14 @@ const CalculateCallPrice: React.FC = () => {
         if(!time || !region || !plan) {
             throw new Error('Missing informations, try again');
         };
-
-        const calculate = new CalculatePrice();
     
         const selectedRegion = prices.find(price => price.region === region);
         const selectedPlan = plans.find(selectPlan => selectPlan.name === plan);
     
-        const comFaleMais = Number(calculate.comFaleMais(time, selectedPlan?.limit, selectedRegion?.price));
-        const semFaleMais = Number(calculate.semFaleMais(time, selectedRegion?.price));
+        const totalComFaleMais = Number(comFaleMais(time, selectedPlan?.limit, selectedRegion?.price));
+        const totalSemFaleMais = Number(semFaleMais(time, Number(selectedRegion?.price)));
     
-        if(comFaleMais <= 0) {
+        if(totalComFaleMais <= 0) {
             setFree(true);
         }
 
@@ -56,8 +54,8 @@ const CalculateCallPrice: React.FC = () => {
           destino: selectedRegion?.destiny,
           tempo: time,
           plano: selectedPlan?.name,
-          valorComFaleMais: formatPrice(comFaleMais),
-          valorSemFaleMais: formatPrice(semFaleMais),
+          valorComFaleMais: formatPrice(totalComFaleMais),
+          valorSemFaleMais: formatPrice(totalSemFaleMais),
         };
     
         result.push(total);
