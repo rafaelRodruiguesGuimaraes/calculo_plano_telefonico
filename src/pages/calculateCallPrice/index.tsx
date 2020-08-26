@@ -23,16 +23,14 @@ interface ITotal {
 };
 
 const CalculateCallPrice: React.FC = () => {
-  const [results, setResults] = useState<Array<ITotal>>();
+  const [results, setResults] = useState<Array<ITotal>>([]);
   const [error, setError] = useState<boolean>(false);
   const [free, setFree] = useState(false);
-
-  const result: Array<ITotal> = [];
   
   const priceOptions = prices.map(price => { return {value: price.region, label: price.name }});
   const planOptions = plans.map(plan => { return { value: plan.name, label: plan.name }});
 
-  const handleSubmit = useCallback(async ({ time, region, plan }) => {
+  const handleSubmit = useCallback(({ time, region, plan }) => {
 
     try {
         if(!time || !region || !plan) {
@@ -47,25 +45,24 @@ const CalculateCallPrice: React.FC = () => {
     
         if(totalComFaleMais <= 0) {
             setFree(true);
+        } else {
+            setFree(false);
         }
+    
+        setResults([...results, {
+            origem: selectedRegion?.origin,
+            destino: selectedRegion?.destiny,
+            tempo: time,
+            plano: selectedPlan?.name,
+            valorComFaleMais: formatPrice(totalComFaleMais),
+            valorSemFaleMais: formatPrice(totalSemFaleMais),
+        }]);
 
-        const total: ITotal = {
-          origem: selectedRegion?.origin,
-          destino: selectedRegion?.destiny,
-          tempo: time,
-          plano: selectedPlan?.name,
-          valorComFaleMais: formatPrice(totalComFaleMais),
-          valorSemFaleMais: formatPrice(totalSemFaleMais),
-        };
-    
-        result.push(total);
-    
-        setResults(result);
         setError(false);
     }catch(err) {
         setError(true)
     }
-  }, [results]);
+  }, []);
 
   return (
     <Container error={error} >
@@ -118,6 +115,7 @@ const CalculateCallPrice: React.FC = () => {
                             <td>Sem Fale Mais</td>
                         </tr>
                     </thead>
+
                     {
                     results.map(r => (
                         <tbody key={r.valorSemFaleMais}>
@@ -139,7 +137,7 @@ const CalculateCallPrice: React.FC = () => {
             }
             
         </div>
-        <Link to="/">Voltar</Link>
+        <Link to="/">Voltar para lista de preços</Link>
     </Container>
   );
 };

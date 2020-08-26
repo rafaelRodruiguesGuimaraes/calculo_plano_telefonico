@@ -22,3 +22,4 @@ export function comFaleMais(time: number, planLimit: number | undefined, price: 
 
     return calculatedPrice;
   }
+  
