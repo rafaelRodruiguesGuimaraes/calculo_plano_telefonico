@@ -60,9 +60,10 @@ export const Container = styled.div<ContainerProps>`
 
     .result {
         display: flex;
+        width: 100vw;
         align-items: center;
         justify-content: center;
-    
+        padding-bottom: 32px;
 
         .result-list {
             width: 1000px;
@@ -95,24 +96,25 @@ export const Container = styled.div<ContainerProps>`
     }
 
     a {
-        bottom: 0;
-        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: fixed;
+        bottom: 25px;
+        width: 100px;
+        height: 100px;
         text-align: center;
-        line-height: 28px;
-        position: absolute;
+        line-height: 35px;
+        right: 30px;
         padding: 8px;
-        width: 100vw;
-        font-size: 18px;
+        font: 18px;
+        font-weight: bold;
+        background: #E39736;
+        border-radius: 50%;
+        opacity: 95%;
 
         text-decoration: none;
-        background: #E39736;
         color: #fff;
-
-        transition: background 0.2s;
-
-        &:hover {
-            background: ${darken(0.08, '#E39736')};
-        }
     }
 
     p {
@@ -143,6 +145,18 @@ export const Container = styled.div<ContainerProps>`
                 width: 100px;
                 margin-left: 50px;
                 margin-top: -3px;
+            }
+        }
+
+        a {
+            width: 300px;
+            height: 50px;
+            border-radius: 8px;
+
+            transition: background-image 0.4s;
+
+            &:hover {
+                background: ${darken(0.08, '#E39736')};
             }
         }
     }

@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useState } from 'react';
 import { Form } from '@unform/web';
 import { Link } from 'react-router-dom';
 
@@ -22,15 +22,20 @@ interface ITotal {
     valorSemFaleMais: string;
 };
 
+interface SubmitProps {
+    time: number;
+    region: string;
+    plan: string;
+}
+
 const CalculateCallPrice: React.FC = () => {
   const [results, setResults] = useState<Array<ITotal>>([]);
-  const [error, setError] = useState<boolean>(false);
-  const [free, setFree] = useState(false);
+  const [error, setError] = useState(false);
   
   const priceOptions = prices.map(price => { return {value: price.region, label: price.name }});
   const planOptions = plans.map(plan => { return { value: plan.name, label: plan.name }});
 
-  const handleSubmit = useCallback(({ time, region, plan }) => {
+  function handleSubmit({ time, region, plan }: SubmitProps) {
 
     try {
         if(!time || !region || !plan) {
@@ -43,26 +48,32 @@ const CalculateCallPrice: React.FC = () => {
         const totalComFaleMais = Number(comFaleMais(time, selectedPlan?.limit, selectedRegion?.price));
         const totalSemFaleMais = Number(semFaleMais(time, Number(selectedRegion?.price)));
     
+        let free = false
+
         if(totalComFaleMais <= 0) {
-            setFree(true);
+            free = true;
         } else {
-            setFree(false);
+            free = false
         }
+
+        const isFree = free ? 'Sem custos adicionais' : formatPrice(totalComFaleMais);;
     
+        console.log(isFree)
+
         setResults([...results, {
             origem: selectedRegion?.origin,
             destino: selectedRegion?.destiny,
             tempo: time,
             plano: selectedPlan?.name,
-            valorComFaleMais: formatPrice(totalComFaleMais),
+            valorComFaleMais: isFree,
             valorSemFaleMais: formatPrice(totalSemFaleMais),
         }]);
 
         setError(false);
     }catch(err) {
-        setError(true)
+        setError(true) 
     }
-  }, []);
+  };
 
   return (
     <Container error={error} >
@@ -103,7 +114,7 @@ const CalculateCallPrice: React.FC = () => {
 
         <div className="result">
             {
-                results &&
+                results.length >= 1 &&
                     <table className="result-list">
                     <thead>
                         <tr>
@@ -122,12 +133,15 @@ const CalculateCallPrice: React.FC = () => {
                             <tr>
                                 <td><strong>DDD</strong> {r.origem}</td>
                                 <td><strong>DDD</strong> {r.destino}</td>
-                                <td>{r.tempo}m</td>
+                                <td>{r.tempo}<strong>m</strong></td>
                                 <td>{r.plano}</td>
-                                    { 
-                                        free ? <td><strong>Sem custos adicionais</strong></td> :
-                                        <td>{r.valorComFaleMais}</td>  
+                                <td>
+                                    {
+                                        r.valorComFaleMais === 'Sem custos adicionais' ? 
+                                        <strong>{r.valorComFaleMais}</strong> :
+                                        r.valorComFaleMais
                                     }
+                                </td>  
                                 <td>{r.valorSemFaleMais}</td>
                             </tr>
                         </tbody>
@@ -137,7 +151,7 @@ const CalculateCallPrice: React.FC = () => {
             }
             
         </div>
-        <Link to="/">Voltar para lista de preços</Link>
+        <Link to="/">Voltar</Link>
     </Container>
   );
 };
