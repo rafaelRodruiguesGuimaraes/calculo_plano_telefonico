@@ -17,7 +17,7 @@ export const Container = styled.div`
     }
 
     .price-list thead tr {
-        background-color: #E39736;
+        background-color: #E0665C;
         text-align: left;
         font-weight: bold;
         color: #fff;

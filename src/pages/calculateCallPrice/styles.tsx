@@ -45,7 +45,7 @@ export const Container = styled.div<ContainerProps>`
             width: 400px;
             height: 40px;
             border: none;
-            background: #E39736;
+            background: #E0665C;
             border-radius: 8px;
             color: #fff;
             font-weight: bold;
@@ -53,7 +53,7 @@ export const Container = styled.div<ContainerProps>`
             transition: background 0.2s;
 
             &:hover {
-                background: ${darken(0.06, '#E39736')}
+                background: ${darken(0.06, '#E0665C')}
             }
         }
     }
@@ -76,7 +76,7 @@ export const Container = styled.div<ContainerProps>`
         }
 
         .result-list thead tr {
-            background-color: #E39736;
+            background-color: #E0665C;
             text-align: left;
             font-weight: bold;
             color: #fff;
@@ -109,7 +109,7 @@ export const Container = styled.div<ContainerProps>`
         padding: 8px;
         font: 18px;
         font-weight: bold;
-        background: #E39736;
+        background: #E0665C;
         border-radius: 50%;
         opacity: 95%;
 
@@ -156,7 +156,7 @@ export const Container = styled.div<ContainerProps>`
             transition: background-image 0.4s;
 
             &:hover {
-                background: ${darken(0.08, '#E39736')};
+                background: ${darken(0.08, '#E0665C')};
             }
         }
     }

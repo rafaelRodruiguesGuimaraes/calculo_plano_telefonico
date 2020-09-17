@@ -58,8 +58,6 @@ const CalculateCallPrice: React.FC = () => {
 
         const isFree = free ? 'Sem custos adicionais' : formatPrice(totalComFaleMais);;
     
-        console.log(isFree)
-
         setResults([...results, {
             origem: selectedRegion?.origin,
             destino: selectedRegion?.destiny,
@@ -121,9 +119,9 @@ const CalculateCallPrice: React.FC = () => {
                             <td>Origem</td>
                             <td>Destino</td>
                             <td>Tempo</td>
-                            <td>Plano Fale Mais</td>
-                            <td>Com Fale Mais</td>
-                            <td>Sem Fale Mais</td>
+                            <td>Plano</td>
+                            <td>Com plano</td>
+                            <td>Sem plano</td>
                         </tr>
                     </thead>
 

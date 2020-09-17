@@ -12,7 +12,7 @@ export const Container = styled.div`
 
         a {
             color: #fff; 
-            background: #E39736;
+            background: #E0665C;
             width: 400px;
             text-align: center;
             border-radius: 8px;

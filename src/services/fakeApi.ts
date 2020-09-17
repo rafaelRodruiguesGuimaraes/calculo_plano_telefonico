@@ -5,9 +5,9 @@ interface PlanProps {
 interface PlansProps extends Array<PlanProps>{}
 
 export const plans: PlansProps = [
-    { name: 'faleMais30', limit: 30 },
-    { name: 'faleMais60', limit: 60 },
-    { name: 'faleMais120', limit: 120 },
+    { name: 'plano30', limit: 30 },
+    { name: 'plano60', limit: 60 },
+    { name: 'plano120', limit: 120 },
 ];
 
 interface PriceProps {
